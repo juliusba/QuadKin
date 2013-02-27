@@ -12,10 +12,10 @@ namespace QuadKin
         private static readonly double WIGGLE_ROOM = 0.2;
         public static readonly double ANGLE_ERROR_TOLERANCE = Math.PI / 4;
         
-        public double UD { get; private set; }
-        public double RL { get; private set; }
-        public double FB { get; private set; }
-        public double TRL { get; private set; }
+        public float UD { get; private set; }
+        public float RL { get; private set; }
+        public float FB { get; private set; }
+        public float TRL { get; private set; }
 
         public bool valid { get; private set; }
 
@@ -25,7 +25,7 @@ namespace QuadKin
             BodyPartData leftArm = new BodyPartData(skel, BodyPart.LeftArm);
 
             this.valid = this.isValidCommand(rightArm, leftArm);
-            if (true)//this.valid)
+            if (this.valid)
             {
                 this.setUD(rightArm, leftArm);
                 this.setRL(rightArm, leftArm);

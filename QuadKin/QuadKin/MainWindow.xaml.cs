@@ -216,6 +216,11 @@ namespace QuadKin
                             {
                                 case State.None:
                                     this.state = State.Awaiting;
+                                    Thread t = new Thread(() =>
+                                        {
+                                            quadCom.takeOff();
+                                        });
+                                    t.Start();
                                     this.stopwatch.Restart();
                                     this.LabelCountDown.Content = 5;
                                     this.LabelCountDown.FontSize = 64;
@@ -246,12 +251,17 @@ namespace QuadKin
                                     }
                                     break;
                                 case State.Controlling:
+                                    quadCom.sendUpdatedValues(c);
                                     this.LabelUpDown.Content = c.UD + "%";
                                     this.LabelRightLeft.Content = c.RL + "%";
                                     this.LabelForthBack.Content = c.FB + "%";
                                     this.LabelTurnRightLeft.Content = c.TRL + "%";
                                     break;
                             }
+
+                        }
+                        else
+                        {
 
                         }
 
