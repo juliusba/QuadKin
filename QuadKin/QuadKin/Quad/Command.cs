@@ -10,7 +10,7 @@ namespace QuadKin
     public class Command
     {
         private static readonly double WIGGLE_ROOM = 0.2;
-        public static readonly double ANGLE_ERROR_TOLERANCE = Math.PI / 4;
+        public static readonly double ANGLE_ERROR_TOLERANCE = Math.PI / 2;
         
         public float UD { get; private set; }
         public float RL { get; private set; }
@@ -166,8 +166,6 @@ namespace QuadKin
             this.X /= length;
             this.Y /= length;
             this.Z /= length;
-
-            this.X = angleError;
 
             this.straight = angleError < Command.ANGLE_ERROR_TOLERANCE;
         }

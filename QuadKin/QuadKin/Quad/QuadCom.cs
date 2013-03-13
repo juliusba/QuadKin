@@ -101,6 +101,11 @@ namespace QuadKin.Quad
             State = State.Ready;
         }
 
+        public void Stop()
+        {
+
+        }
+
         public void takeOff()
         {
             sw.Restart();

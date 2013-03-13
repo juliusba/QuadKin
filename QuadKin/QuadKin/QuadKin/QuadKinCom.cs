@@ -13,12 +13,17 @@ namespace QuadKin
 {
     class QuadKinCom : StateClass
     {
-        private static readonly int waitInterwal = 3000;
+        private static readonly int waitInterval = 3000;
+        private static readonly int validInterval = 100;
         
-        private Stopwatch stopwatch = new Stopwatch();
+        private Stopwatch swInit = new Stopwatch();
+        private Stopwatch swValid = new Stopwatch();
 
         private static QuadKinCom quadKinCom;
         private static object syncRoot = new Object();
+
+        public delegate void CommandHandler(Command cmd);
+        public event CommandHandler CommandReady;
 
         private QuadKinCom()
         {
@@ -69,6 +74,7 @@ namespace QuadKin
         private void skeletonReady(Skeleton skel)
         {
             Command c = new Command(skel);
+            if(CommandReady != null) CommandReady(c);
 
             if (c.valid)
             {
@@ -77,25 +83,41 @@ namespace QuadKin
                     case State.NoConnection:
                         this.State = State.Initializing;
                         QuadCom.instance.takeOff();
-                        this.stopwatch.Restart();
+                        this.swInit.Restart();
                         break;
                     case State.Initializing:
                         QuadCom.instance.sendNullCommand();
-                        long timeLeft = waitInterwal - this.stopwatch.ElapsedMilliseconds;
+                        long timeLeft = waitInterval - this.swInit.ElapsedMilliseconds;
                         if (timeLeft <= 0)
                         {
                             this.State = State.Ready;
-                            this.stopwatch.Reset();
+                            this.swInit.Reset();
                         }
+                        if(swValid.IsRunning) swValid.Reset();
                         break;
                     case State.Ready:
                         QuadCom.instance.sendCommand(c);
+                        if(swValid.IsRunning) swValid.Reset();
                         break;
                 }
             }
             else
             {
-                this.State = State.NoConnection;
+                if (State != State.NoConnection)
+                {
+                    if (swValid.IsRunning)
+                    {
+                        if (validInterval - this.swValid.ElapsedMilliseconds <= 0)
+                        {
+                            swValid.Reset();
+                            State = State.NoConnection;
+                        }
+                    }
+                    else
+                    {
+                        swValid.Start();
+                    }
+                }
             }
         }
     }

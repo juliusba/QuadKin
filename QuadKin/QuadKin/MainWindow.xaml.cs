@@ -96,7 +96,8 @@ namespace QuadKin
         /// <param name="e">event arguments</param>
         private void WindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            
+            KinCom.instance.Stop();
+            QuadCom.instance.Stop();
         }
     }
 }

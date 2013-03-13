@@ -77,6 +77,7 @@ namespace QuadKin.Kinect
                 catch (IOException)
                 {
                     this.kinSensor = null;
+                    int lol = 0;
                 }
 
                 if (statusLabel != null)
@@ -110,11 +111,19 @@ namespace QuadKin.Kinect
             }
         }
 
-        public void stop()
+        public void Stop()
         {
             if (null != this.kinSensor)
             {
                 this.kinSensor.Stop();
+                // Turn off the skeleton stream to receive skeleton frames
+                this.kinSensor.SkeletonStream.Disable();
+                this.kinSensor.DepthStream.Disable();
+
+                // Add an event handler to be called whenever there is new color frame data
+                this.kinSensor.SkeletonFrameReady -= this.KinectSkeletonFrameReady;
+                // Add an event handler to be called whenever there is new color frame data
+                this.kinSensor.DepthFrameReady -= this.KinectDepthFrameReady;
             }
         }
 

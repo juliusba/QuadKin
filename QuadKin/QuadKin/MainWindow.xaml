@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Kinect="clr-namespace:QuadKin.Kinect.UserControls"
         xmlns:Quad="clr-namespace:QuadKin.Quad.UserControls"
+        xmlns:QuadKin="clr-namespace:QuadKin.QuadKin.UserControls"
         Title="MainWindow" Height="600" Width="900"
         WindowStyle="None" ResizeMode="NoResize"  WindowStartupLocation="CenterScreen" WindowState="Maximized">
     
@@ -50,11 +51,12 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="690" />
                 <ColumnDefinition Width="690" />
+                <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
             
             <Kinect:SkelDisplay/>
             <Quad:CamDisplay  Grid.Column="1"/>
-            
+            <QuadKin:ControlDisplay Grid.Column="2" />
         </Grid>
     </Grid>
 </Window>

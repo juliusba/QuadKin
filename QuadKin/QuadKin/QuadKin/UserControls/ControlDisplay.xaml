@@ -6,6 +6,41 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-          
+        <Border VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="WhiteSmoke">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="40" Color="Black" Direction="45" Opacity="1.0" RenderingBias="Performance"
+                                  ShadowDepth="0"/>
+            </Border.Effect>
+        </Border>
+        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="30" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="30" />
+            </Grid.ColumnDefinitions>
+            
+            <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Content="Command data" FontSize="30" />
+            <Label Grid.Row="2" Grid.Column="1" Content="Flag" FontSize="20" />
+            <Label Grid.Row="3" Grid.Column="1" Content="Up-Down" FontSize="20" />
+            <Label Grid.Row="4" Grid.Column="1" Content="Right-Left" FontSize="20" />
+            <Label Grid.Row="5" Grid.Column="1" Content="Front-Back" FontSize="20" />
+            <Label Grid.Row="6" Grid.Column="1" Content="Turn-Right-Left" FontSize="20" />
+
+            <Label Name="Valid" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Right" Content="Invalid" FontSize="20" Foreground="Red" />
+            <Label Name="UD" Grid.Row="3" Grid.Column="2" HorizontalAlignment="Right" Content="0.0" FontSize="20" />
+            <Label Name="RL" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Right" Content="0.0" FontSize="20" />
+            <Label Name="FB" Grid.Row="5" Grid.Column="2" HorizontalAlignment="Right" Content="0.0" FontSize="20" />
+            <Label Name="TRL" Grid.Row="6" Grid.Column="2" HorizontalAlignment="Right" Content="0.0" FontSize="20" />
+        </Grid>
     </Grid>
 </UserControl>

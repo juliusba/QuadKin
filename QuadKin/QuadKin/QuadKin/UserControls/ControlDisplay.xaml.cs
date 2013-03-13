@@ -23,6 +23,27 @@ namespace QuadKin.QuadKin.UserControls
         public ControlDisplay()
         {
             InitializeComponent();
+
+            QuadKinCom.instance.CommandReady += update;
+        }
+
+        private void update(Command cmd)
+        {
+            if (cmd.valid)
+            {
+                Valid.Content = "Valid";
+                Valid.Foreground = new SolidColorBrush(Colors.Green);
+            }
+            else
+            {
+                Valid.Content = "Invalid";
+                Valid.Foreground = new SolidColorBrush(Colors.Red);
+            }
+
+            UD.Content = cmd.UD;
+            RL.Content = cmd.RL;
+            FB.Content = cmd.FB;
+            TRL.Content = cmd.TRL;
         }
     }
 }

@@ -26,6 +26,11 @@ namespace QuadKin.Quad
         }
         private Socket socket_at;
 
+        private bool land = false;
+        private bool takeOff = false;
+        private bool initNav = false;
+        private bool initVideo = false;
+
         private bool valuesUpdated;
         private float pitch;
         private float roll;
@@ -52,17 +57,17 @@ namespace QuadKin.Quad
 
         public void TakeOff()
         {
-            sendCommand("AT*REF=" + seqNr + ",290718208");
+            takeOff = true;
         }
 
         public void Land()
         {
-            sendCommand("AT*REF=" + seqNr + ",290717696");
+            land = true;
         }
 
         public void sendNullCommand()
         {
-            sendCommand("AT*PCMD=" + seqNr + "," + 1 + "," + 0 + "," + 0 + "," + 0 + "," + 0);
+            sendUpdatedValues(0, 0, 0, 0, 0);
         }
 
         public void sendUpdatedValues(int enable, float pitch, float roll, float gaz, float yaw)
@@ -76,39 +81,67 @@ namespace QuadKin.Quad
 
         public void InitNavData()
         {
-            sendCommand("AT*CONFIG=" + seqNr + ",\"general:navdata_demo\",\"TRUE\"");
+            initNav = true;
         }
 
         public void InitVideoData()
         {
-            sendCommand("AT*CONFIG=" + seqNr + ",\"general:video_enable\",\"TRUE\"");
+            initVideo = true;
         }
 
         protected override void doWork()
         {
-            Thread.Sleep(25);
-            if (valuesUpdated)
+            if (land)
             {
-                sendCommand("AT*PCMD=" + seqNr + "," + 1 + "," + intOfFloat(pitch) + "," + intOfFloat(roll)
-                    + "," + intOfFloat(gaz) + "," + intOfFloat(yaw));
-
-                if (sw.IsRunning)
-                    sw.Stop();
+                sendCommand("AT*REF=" + seqNr + ",290717696");
+                land = false;
+                takeOff = false;
+            }
+            else if (takeOff)
+            {
+                sendCommand("AT*REF=" + seqNr + ",290718208");
+                takeOff = false;
+            }
+            else if (initNav)
+            {
+                sendCommand("AT*CONFIG=" + seqNr + ",\"general:navdata_demo\",\"TRUE\"");
+                initNav = false;
+            }
+            else if (initVideo)
+            {
+                sendCommand("AT*CONFIG=" + seqNr + ",\"general:video_enable\",\"TRUE\"");
+                initVideo = false;
             }
             else
             {
-                if (sw.IsRunning)
+                if (valuesUpdated)
                 {
-                    if (sw.ElapsedMilliseconds > 200)
-                    {
-                        sendCommand("AT*PCMD=" + seqNr + "," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0);
-                    }
+                    sendCommand("AT*PCMD=" + seqNr + "," + 1 + "," + intOfFloat(pitch) + "," + intOfFloat(roll)
+                        + "," + intOfFloat(gaz) + "," + intOfFloat(yaw));
+
+                    if (sw.IsRunning)
+                        sw.Stop();
                 }
                 else
                 {
-                    sw.Restart();
+                    if (sw.IsRunning)
+                    {
+                        if (sw.ElapsedMilliseconds > 200 && sw.ElapsedMilliseconds <= 2000)
+                        {
+                            sendCommand("AT*PCMD=" + seqNr + "," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0);
+                        }
+                        else if (sw.ElapsedMilliseconds > 2000)
+                        {
+                            sendCommand("AT*REF=" + seqNr + ",290717696");
+                        }
+                    }
+                    else
+                    {
+                        sw.Restart();
+                    }
                 }
             }
+            Thread.Sleep(25);
         }
 
         private bool sendCommand(string command)
