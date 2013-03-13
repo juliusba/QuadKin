@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace QuadKin
 {
-    class Command
+    public class Command
     {
         private static readonly double WIGGLE_ROOM = 0.2;
         public static readonly double ANGLE_ERROR_TOLERANCE = Math.PI / 4;

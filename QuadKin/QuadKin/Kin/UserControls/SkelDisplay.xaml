@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="QuadKin.Kinect.UserControls.SkelDisplay"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300"
+             Margin="25">
+    <Grid>
+        <Border VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="Black">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="40" Color="Black" Direction="45" Opacity="1.0" RenderingBias="Performance"
+                                  ShadowDepth="0"/>
+            </Border.Effect>
+        </Border>
+        <Image Name="ImageDisplay" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+        <Canvas Name="SkeletonDisplay" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <Ellipse Height="10" Width="10" Fill="Blue" Name="JointHipCenter" Visibility="Hidden"/>
+            <Ellipse Height="10" Width="10" Fill="Blue" Name="JointSpine" Visibility="Hidden"/>
+            <Ellipse Height="10" Width="10" Fill="Blue" Name="JointShoulderCenter" Visibility="Hidden"/>
+            <Ellipse Height="25" Width="15" Fill="yellow" Name="JointHead" Visibility="Hidden"/>
+            <Ellipse Height="10" Width="10" Fill="Blue" Name="JointShoulderLeft" Visibility="Hidden"/>
+            <Ellipse Height="10" Width="10" Fill="Magenta" Name="JointElbowLeft" Visibility="Hidden"/>
+            <Ellipse Height="10" Width="10" Fill="Blue" Name="JointWristLeft" Visibility="Hidden"/>
+            <Ellipse Height="10" Width="10" Fill="Blue" Name="JointHandLeft" Visibility="Hidden"/>
+            <Ellipse Height="10" Width="10" Fill="Blue" Name="JointShoulderRight" Visibility="Hidden"/>
+            <Ellipse Height="10" Width="10" Fill="Magenta" Name="JointElbowRight" Visibility="Hidden"/>
+            <Ellipse Height="10" Width="10" Fill="Blue" Name="JointWristRight" Visibility="Hidden"/>
+            <Ellipse Height="10" Width="10" Fill="Blue" Name="JointHandRight" Visibility="Hidden"/>
+            <Ellipse Height="10" Width="10" Fill="Blue" Name="JointHipLeft" Visibility="Hidden"/>
+            <Ellipse Height="15" Width="10" Fill="Red" Name="JointKneeLeft" Visibility="Hidden"/>
+            <Ellipse Height="10" Width="10" Fill="Blue" Name="JointAnkleLeft" Visibility="Hidden"/>
+            <Ellipse Height="10" Width="10" Fill="Blue" Name="JointFootLeft" Visibility="Hidden"/>
+            <Ellipse Height="10" Width="10" Fill="Blue" Name="JointHipRight" Visibility="Hidden"/>
+            <Ellipse Height="15" Width="10" Fill="Red" Name="JointKneeRight" Visibility="Hidden"/>
+            <Ellipse Height="10" Width="10" Fill="Blue" Name="JointAnkleRight" Visibility="Hidden"/>
+            <Ellipse Height="10" Width="10" Fill="Blue" Name="JointFootRight" Visibility="Hidden"/>
+        </Canvas>
+    </Grid>
+</UserControl>

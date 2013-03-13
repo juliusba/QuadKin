@@ -23,6 +23,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -39,6 +40,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Kinect, Version=1.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="SlimDX, Version=4.0.13.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9, processorArchitecture=AMD64" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -58,7 +60,28 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Quad\QuadCommunication.cs" />
+    <Compile Include="Kin\KinCom.cs" />
+    <Compile Include="Kin\UserControls\SkelDisplay.xaml.cs">
+      <DependentUpon>SkelDisplay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="QuadKin\UserControls\ControlDisplay.xaml.cs">
+      <DependentUpon>ControlDisplay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Quad\ATWorker.cs" />
+    <Compile Include="Quad\NavDataWorker.cs" />
+    <Compile Include="Quad\UDPWorker.cs" />
+    <Compile Include="Quad\VideoDataWorker.cs" />
+    <Compile Include="Quad\VideoUtils.cs" />
+    <Compile Include="State.cs" />
+    <Compile Include="QuadKin\QuadKinCom.cs" />
+    <Compile Include="Quad\QuadCom.cs" />
+    <Compile Include="Quad\UserControls\CamDisplay.xaml.cs">
+      <DependentUpon>CamDisplay.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Kin\UserControls\SkelDisplay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -72,6 +95,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="QuadKin\UserControls\ControlDisplay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Quad\UserControls\CamDisplay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

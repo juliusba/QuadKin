@@ -1,94 +1,60 @@
 ﻿<Window x:Class="QuadKin.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Kinect="clr-namespace:QuadKin.Kinect.UserControls"
+        xmlns:Quad="clr-namespace:QuadKin.Quad.UserControls"
         Title="MainWindow" Height="600" Width="900"
-        WindowStyle="None" ResizeMode="NoResize"  WindowStartupLocation="CenterScreen">
+        WindowStyle="None" ResizeMode="NoResize"  WindowStartupLocation="CenterScreen" WindowState="Maximized">
     
     <Grid Background="#333">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="100" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="100" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="100" />
             <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="100" />
         </Grid.ColumnDefinitions>
         
-        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+        <Grid Grid.Row="0" Grid.Column="1" >
             <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            
-            <Label Grid.Row="0" Grid.Column="0" Content="QuadKin" Foreground="WhiteSmoke" FontSize="28" Margin="10,10,0,0"/>
 
-            <Label Grid.Row="0" Grid.Column="1" Content="Sensor status:" Foreground="White" Margin="0,20,0,0"/>
-            <Label Grid.Row="0" Grid.Column="2" Name="LabelSensorStatus" Content="Initializing..." Foreground="Yellow" Margin="0,20,0,0"/>
+            <Label Grid.Row="1" Grid.Column="1" Content="State:" Foreground="White"/>
+            <Label Grid.Row="1" Grid.Column="2" Name="LabelState" Content="Sleep" Foreground="Yellow" />
+
+            <Label Grid.Row="1" Grid.Column="3" Content="Kinect status:" Foreground="White"/>
+            <Label Grid.Row="1" Grid.Column="4" Name="LabelKinectStatus" Content="Initializing..." Foreground="Yellow" />
+            <Label Grid.Row="2" Grid.Column="3" Content="QuadCopter status:" Foreground="White"/>
+            <Label Grid.Row="2" Grid.Column="4" Name="LabelQuadStatus" Content="Initializing..." Foreground="Yellow" />
         </Grid>
-        <Border Grid.Row="1" Grid.Column="0" Grid.RowSpan="10" Margin="10" Height="480" Width="640" Background="Black">
-            <Border.Effect>
-                <DropShadowEffect BlurRadius="40" Color="Black" Direction="45" Opacity="1.0" RenderingBias="Performance"
-                                  ShadowDepth="0"/>
-            </Border.Effect>
-        </Border>
-        <Image Grid.Row="1" Grid.Column="0" Grid.RowSpan="10" Name="Display" Margin="10" Height="480" Width="640"/>
-        <Canvas Grid.Row="1" Grid.Column="0" Grid.RowSpan="10" Name="DisplaySkel" Margin="10" Height="480" Width="640">
-            <Ellipse Height="10" Width="10" Fill="Blue" Name="JointHipCenter" Visibility="Hidden"/>
-            <Ellipse Height="10" Width="10" Fill="Blue" Name="JointSpine" Visibility="Hidden"/>
-            <Ellipse Height="10" Width="10" Fill="Blue" Name="JointShoulderCenter" Visibility="Hidden"/>
-            <Ellipse Height="25" Width="15" Fill="yellow" Name="JointHead" Visibility="Hidden"/>
-            <Ellipse Height="10" Width="10" Fill="Blue" Name="JointShoulderLeft" Visibility="Hidden"/>
-            <Ellipse Height="10" Width="10" Fill="Magenta" Name="JointElbowLeft" Visibility="Hidden"/>
-            <Ellipse Height="10" Width="10" Fill="Blue" Name="JointWristLeft" Visibility="Hidden"/>
-            <Ellipse Height="10" Width="10" Fill="Blue" Name="JointHandLeft" Visibility="Hidden"/>
-            <Ellipse Height="10" Width="10" Fill="Blue" Name="JointShoulderRight" Visibility="Hidden"/>
-            <Ellipse Height="10" Width="10" Fill="Magenta" Name="JointElbowRight" Visibility="Hidden"/>
-            <Ellipse Height="10" Width="10" Fill="Blue" Name="JointWristRight" Visibility="Hidden"/>
-            <Ellipse Height="10" Width="10" Fill="Blue" Name="JointHandRight" Visibility="Hidden"/>
-            <Ellipse Height="10" Width="10" Fill="Blue" Name="JointHipLeft" Visibility="Hidden"/>
-            <Ellipse Height="15" Width="10" Fill="Red" Name="JointKneeLeft" Visibility="Hidden"/>
-            <Ellipse Height="10" Width="10" Fill="Blue" Name="JointAnkleLeft" Visibility="Hidden"/>
-            <Ellipse Height="10" Width="10" Fill="Blue" Name="JointFootLeft" Visibility="Hidden"/>
-            <Ellipse Height="10" Width="10" Fill="Blue" Name="JointHipRight" Visibility="Hidden"/>
-            <Ellipse Height="15" Width="10" Fill="Red" Name="JointKneeRight" Visibility="Hidden"/>
-            <Ellipse Height="10" Width="10" Fill="Blue" Name="JointAnkleRight" Visibility="Hidden"/>
-            <Ellipse Height="10" Width="10" Fill="Blue" Name="JointFootRight" Visibility="Hidden"/>
-        </Canvas>
         
-        <Grid Name="LabelsControlData" Grid.Row="1" Grid.Column="1" Margin="10" Visibility="Hidden">
+        <Grid Name="Displays"  Grid.Row="1" Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height="530" />
+                <RowDefinition Height="530" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="690" />
+                <ColumnDefinition Width="690" />
             </Grid.ColumnDefinitions>
             
-            <Label Grid.Row="0" Grid.Column="0" Content="Up-Down:" Foreground="White"/>
-            <Label Grid.Row="1" Grid.Column="0" Content="Right-Left:" Foreground="White"/>
-            <Label Grid.Row="2" Grid.Column="0" Content="Forth-Back:" Foreground="White"/>
-            <Label Grid.Row="3" Grid.Column="0" Content="Turn-RL:" Foreground="White"/>
-        
-            <Label Name="LabelUpDown" Grid.Row="0" Grid.Column="1" Content="0.0" Foreground="White"/>
-            <Label Name="LabelRightLeft" Grid.Row="1" Grid.Column="1" Content="0.0" Foreground="White"/>
-            <Label Name="LabelForthBack" Grid.Row="2" Grid.Column="1" Content="0.0" Foreground="White"/>
-            <Label Name="LabelTurnRightLeft" Grid.Row="3" Grid.Column="1" Content="0.0" Foreground="White"/>
-
+            <Kinect:SkelDisplay/>
+            <Quad:CamDisplay  Grid.Column="1"/>
             
         </Grid>
-
-        <Label Name="LabelCountDown" Grid.Row="1" Grid.Column="1" 
-                  HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Visible"
-                  Foreground="White" FontSize="26" FontFamily="Comic Sans MS"
-                  Content="Get in position..."/>
     </Grid>
 </Window>
