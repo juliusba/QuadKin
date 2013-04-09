@@ -77,6 +77,14 @@ namespace QuadKin.Quad
             }
         }
 
+        public static void Stop()
+        {
+            quadCom.atWorker.CancelAsync();
+            quadCom.navDataWorker.CancelAsync();
+            quadCom.videoDataWorker.CancelAsync();
+            quadCom = null;
+        }
+
         public void Init()
         {
             if (!atWorker.Init(ipAdd, PORT_AT))
@@ -101,57 +109,19 @@ namespace QuadKin.Quad
             State = State.Ready;
         }
 
-        public void Stop()
+        public void TakeOff()
         {
-
-        }
-
-        public void takeOff()
-        {
-            sw.Restart();
             atWorker.TakeOff();
-            Thread takeOffThread = new Thread(() =>
-            {
-                bool exit = false;
-                while (!exit && sw.ElapsedMilliseconds < 10000)
-                {
-                    Thread.Sleep(300);
-                    switch(QuadKinCom.instance.State)
-                    {
-                        case State.NoConnection:
-                            exit = true;
-                            break;
-                        case State.Initializing:
-                            atWorker.sendNullCommand();
-                            break;
-                        case State.Ready:
-                            exit = true;
-                            break;
-                    }
-                }
-            });
         }
 
-        public void sendCommand(Command c)
+        public void Land()
         {
-            if (c.valid)
-            {
-                atWorker.sendUpdatedValues(1, c.FB, c.RL, c.UD, c.TRL);
-            }
-            else
-            {
-                atWorker.Land();
-            }
+            atWorker.Land();
         }
 
-        //private void sendCommand(string command)
-        //{
-        //    atWorker.sendCommand(command);
-        //}
-
-        public void sendNullCommand()
+        public void SendCommand(Command c)
         {
-            atWorker.sendNullCommand();
+            atWorker.sendCommand(c);
         }
     }
 }

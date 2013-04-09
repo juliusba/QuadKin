@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -7,24 +8,22 @@ using System.Threading.Tasks;
 
 namespace QuadKin.Quad
 {
-    public abstract class UDPWorker
+    public abstract class UDPWorker : BackgroundWorker
     {
-        protected Thread workerThread;
 
         protected abstract void doWork();
 
         public void StartWorkerThread()
         {
-            workerThread = new Thread(new ThreadStart(threadLoop));
-            workerThread.Name = this.GetType().ToString() + "_WorkerThread";
-            workerThread.Start();
+            DoWork += threadLoop;
+            RunWorkerAsync();
         }
 
-        private void threadLoop()
+        private void threadLoop(object sender, DoWorkEventArgs e)
         {
             while (true)
             {
-                Thread.Sleep(20);
+                Thread.Sleep(15);
                 doWork();
             }
         }

@@ -27,6 +27,11 @@ namespace QuadKin.QuadKin.UserControls
             QuadKinCom.instance.CommandReady += update;
         }
 
+        ~ControlDisplay()
+        {
+            QuadKinCom.instance.CommandReady -= update;
+        }
+
         private void update(Command cmd)
         {
             if (cmd.valid)

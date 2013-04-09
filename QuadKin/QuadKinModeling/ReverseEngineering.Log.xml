@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="file:///C:/PROGRAM FILES (X86)/MICROSOFT VISUAL STUDIO 11.0/COMMON7/IDE/EXTENSIONS/MICROSOFT/ARCHITECTURE TOOLS/EXTENSIBILITY/Logging/ReverseEngineeringLog.xslt"?>
+<Log xmlns="http://schemas.microsoft.com/VisualStudio/2010/CodeGen.RE.Log" Label="Code Generation/Text Transformation Log">
+  <MessageClass Name="Message" Label="Message" Option="Show informational messages" />
+  <MessageClass Name="Warning" Label="Warning" Option="Show warnings" />
+  <MessageClass Name="Error" Label="Error" Option="Show errors" />
+  <MessageClass Name="Property" Label="Property" Option="Show metadata" />
+  <MessageClass Name="Diagnostic" Label="Message" Option="Show diagnostic messages" />
+  <Message Timestamp="2013-03-20T10:38:20" Importance="High" Text="Reverse Engineering Started." />
+  <Message Timestamp="2013-03-20T10:38:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'Boolean' -  (PrimitiveType)" />
+  <Message Timestamp="2013-03-20T10:38:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'QuadKinModeling::Microsoft' -  (Package)" />
+  <Message Timestamp="2013-03-20T10:38:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'QuadKinModeling::Microsoft::Kinect' -  (Package)" />
+  <Message Timestamp="2013-03-20T10:38:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'QuadKinModeling::Microsoft::Kinect::Skeleton' -  (Class)   (partially reverse engineered - definition not updated) " />
+  <Message Timestamp="2013-03-20T10:38:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'QuadKinModeling::QuadKin' -  (Package)" />
+  <Message Timestamp="2013-03-20T10:38:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'QuadKinModeling::QuadKin::BodyPartData' -  (Class)   (partially reverse engineered - definition not updated) " />
+  <Message Timestamp="2013-03-20T10:38:21" Importance="Medium" Text="Element reverse engineered into the UML model: 'QuadKinModeling::QuadKin::Command' -  (Class)" />
+  <Message Timestamp="2013-03-20T10:38:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'QuadKinModeling::QuadKin::Command::ANGLE_ERROR_TOLERANCE' -  (Property)" />
+  <Message Timestamp="2013-03-20T10:38:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'QuadKinModeling::QuadKin::Command::Command' -  (Operation)" />
+  <Message Timestamp="2013-03-20T10:38:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'QuadKinModeling::QuadKin::Command::Command::skel' -  (Parameter)" />
+  <Message Timestamp="2013-03-20T10:38:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'QuadKinModeling::QuadKin::Command::FB' -  (Property)" />
+  <Message Timestamp="2013-03-20T10:38:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'QuadKinModeling::QuadKin::Command::isValidCommand' -  (Operation)" />
+  <Message Timestamp="2013-03-20T10:38:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'QuadKinModeling::QuadKin::Command::isValidCommand::leftArm' -  (Parameter)" />
+  <Message Timestamp="2013-03-20T10:38:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'QuadKinModeling::QuadKin::Command::isValidCommand::rightArm' -  (Parameter)" />
+  <Message Timestamp="2013-03-20T10:38:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'QuadKinModeling::QuadKin::Command::RL' -  (Property)" />
+  <Message Timestamp="2013-03-20T10:38:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'QuadKinModeling::QuadKin::Command::setFB' -  (Operation)" />
+  <Message Timestamp="2013-03-20T10:38:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'QuadKinModeling::QuadKin::Command::setFB::leftArm' -  (Parameter)" />
+  <Message Timestamp="2013-03-20T10:38:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'QuadKinModeling::QuadKin::Command::setFB::rightArm' -  (Parameter)" />
+  <Message Timestamp="2013-03-20T10:38:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'QuadKinModeling::QuadKin::Command::setRL' -  (Operation)" />
+  <Message Timestamp="2013-03-20T10:38:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'QuadKinModeling::QuadKin::Command::setRL::leftArm' -  (Parameter)" />
+  <Message Timestamp="2013-03-20T10:38:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'QuadKinModeling::QuadKin::Command::setRL::rightArm' -  (Parameter)" />
+  <Message Timestamp="2013-03-20T10:38:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'QuadKinModeling::QuadKin::Command::setTRL' -  (Operation)" />
+  <Message Timestamp="2013-03-20T10:38:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'QuadKinModeling::QuadKin::Command::setTRL::leftArm' -  (Parameter)" />
+  <Message Timestamp="2013-03-20T10:38:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'QuadKinModeling::QuadKin::Command::setTRL::rightArm' -  (Parameter)" />
+  <Message Timestamp="2013-03-20T10:38:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'QuadKinModeling::QuadKin::Command::setUD' -  (Operation)" />
+  <Message Timestamp="2013-03-20T10:38:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'QuadKinModeling::QuadKin::Command::setUD::leftArm' -  (Parameter)" />
+  <Message Timestamp="2013-03-20T10:38:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'QuadKinModeling::QuadKin::Command::setUD::rightArm' -  (Parameter)" />
+  <Message Timestamp="2013-03-20T10:38:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'QuadKinModeling::QuadKin::Command::TRL' -  (Property)" />
+  <Message Timestamp="2013-03-20T10:38:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'QuadKinModeling::QuadKin::Command::UD' -  (Property)" />
+  <Message Timestamp="2013-03-20T10:38:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'QuadKinModeling::QuadKin::Command::valid' -  (Property)" />
+  <Message Timestamp="2013-03-20T10:38:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'QuadKinModeling::QuadKin::Command::WIGGLE_ROOM' -  (Property)" />
+  <Message Timestamp="2013-03-20T10:38:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'QuadKinModeling::System' -  (Package)" />
+  <Message Timestamp="2013-03-20T10:38:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'QuadKinModeling::System::Double' -  (Class)   (partially reverse engineered - definition not updated) " />
+  <Message Timestamp="2013-03-20T10:38:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'QuadKinModeling::System::Single' -  (Class)   (partially reverse engineered - definition not updated) " />
+  <Message Timestamp="2013-03-20T10:38:21" Importance="Diagnostic" Text="Relationship reverse engineered into the UML model: QuadKinModeling::QuadKin::Command to QuadKinModeling::System::Single (Association)" />
+  <Message Timestamp="2013-03-20T10:38:21" Importance="Diagnostic" Text="Relationship reverse engineered into the UML model: QuadKinModeling::QuadKin::Command to QuadKinModeling::System::Single (Association)" />
+  <Message Timestamp="2013-03-20T10:38:21" Importance="Diagnostic" Text="Relationship reverse engineered into the UML model: QuadKinModeling::QuadKin::Command to QuadKinModeling::System::Single (Association)" />
+  <Message Timestamp="2013-03-20T10:38:21" Importance="Diagnostic" Text="Relationship reverse engineered into the UML model: QuadKinModeling::QuadKin::Command to QuadKinModeling::System::Single (Association)" />
+  <Message Timestamp="2013-03-20T10:38:21" Importance="High" Text="(1) type(s) fully reverse engineered." />
+  <Message Timestamp="2013-03-20T10:38:21" Importance="High" Text="(4) type(s) partially reverse engineered.  These types were not included in the original selection so their full definitions are not reverse engineered.  Instead, this shallow operation has simply ensured these types exist in the UML model because they are needed in order to fully describe other elements." />
+  <Message Timestamp="2013-03-20T10:38:21" Importance="High" Text="The reverse engineering operation completed with (0) error(s), and (0) warning(s)." />
+</Log>

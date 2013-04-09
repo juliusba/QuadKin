@@ -50,5 +50,19 @@ namespace QuadKin.Quad
                 Console.WriteLine(e.Message);
             }
         }
+
+        //Return int value from udp packet sent from quadcopter
+        public static int get_int_from_packet(Byte[] data, int offset)
+        {
+            if (data.Length < offset + 3) return 0; //Test if there is actually something to read where you want to read
+            int temp = 0; int n = 0;
+            for (int i = 3; i >= 0; i--)
+            {
+                n <<= 8;
+                temp = data[offset + i] & 0xFF;
+                n |= temp;
+            }
+            return n;
+        }
     }
 }

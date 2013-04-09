@@ -9,7 +9,7 @@ namespace QuadKin
 {
     public class Command
     {
-        private static readonly double WIGGLE_ROOM = 0.2;
+        private static readonly double WIGGLE_ROOM = 0.3;
         public static readonly double ANGLE_ERROR_TOLERANCE = Math.PI / 2;
         
         public float UD { get; private set; }
@@ -25,17 +25,16 @@ namespace QuadKin
             BodyPartData leftArm = new BodyPartData(skel, BodyPart.LeftArm);
 
             this.valid = this.isValidCommand(rightArm, leftArm);
-            if (this.valid)
-            {
-                this.setUD(rightArm, leftArm);
-                this.setRL(rightArm, leftArm);
-                this.setFB(rightArm, leftArm);
-                this.setTRL(rightArm, leftArm);
-            }
-            else
-            {
-                this.UD = this.RL = this.FB = this.TRL = 0;
-            }
+            this.setUD(rightArm, leftArm);
+            this.setRL(rightArm, leftArm);
+            this.setFB(rightArm, leftArm);
+            this.setTRL(rightArm, leftArm);
+
+            //float max = Math.Max(Math.Max(this.UD, this.RL), Math.Max(this.FB, this.TRL));
+            //if (this.UD < max) this.UD = 0;
+            //if (this.RL < max) this.RL = 0;
+            //if (this.FB < max) this.FB = 0;
+            //if (this.TRL < max) this.TRL = 0;
         }
 
         /// <summary>
@@ -48,7 +47,7 @@ namespace QuadKin
             // Check for straightness.
             if (!rightArm.straight || !leftArm.straight)
                 return false;
-            else if ((rightArm.X < rightArm.Y && rightArm.Y < 0) && (leftArm.X < leftArm.Y && leftArm.Y < 0))
+            else if ((rightArm.Y < -0.8 && leftArm.Y < -0.8))
                 return false;
 
             return true;
@@ -96,14 +95,14 @@ namespace QuadKin
             JointType.ShoulderRight,
             JointType.ElbowRight,
             JointType.WristRight,
-            JointType.HandRight
+            //JointType.HandRight
         };
 
         private static readonly List<JointType> LeftArm = new List<JointType>(){
             JointType.ShoulderLeft,
             JointType.ElbowLeft,
             JointType.WristLeft,
-            JointType.HandLeft
+            //JointType.HandLeft
         };
 
         public bool straight { get; private set; }

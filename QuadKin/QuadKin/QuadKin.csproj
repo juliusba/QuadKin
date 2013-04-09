@@ -67,10 +67,18 @@
     <Compile Include="QuadKin\UserControls\ControlDisplay.xaml.cs">
       <DependentUpon>ControlDisplay.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Quad\ATWorker.cs" />
-    <Compile Include="Quad\NavDataWorker.cs" />
-    <Compile Include="Quad\UDPWorker.cs" />
-    <Compile Include="Quad\VideoDataWorker.cs" />
+    <Compile Include="Quad\ATWorker.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Quad\NavDataWorker.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Quad\UDPWorker.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Quad\VideoDataWorker.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Quad\VideoUtils.cs" />
     <Compile Include="State.cs" />
     <Compile Include="QuadKin\QuadKinCom.cs" />

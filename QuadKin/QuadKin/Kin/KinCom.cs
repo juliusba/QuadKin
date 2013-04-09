@@ -50,6 +50,23 @@ namespace QuadKin.Kinect
             }
         }
 
+        public static void Stop()
+        {
+            if (null != kinCom.kinSensor)
+            {
+                kinCom.kinSensor.Stop();
+                // Turn off the skeleton stream to receive skeleton frames
+                kinCom.kinSensor.SkeletonStream.Disable();
+                kinCom.kinSensor.DepthStream.Disable();
+
+                // Add an event handler to be called whenever there is new color frame data
+                kinCom.kinSensor.SkeletonFrameReady -= kinCom.KinectSkeletonFrameReady;
+                // Add an event handler to be called whenever there is new color frame data
+                kinCom.kinSensor.DepthFrameReady -= kinCom.KinectDepthFrameReady;
+            }
+            kinCom = null;
+        }
+
         public bool Init(Label statusLabel = null)
         {
             State = State.Initializing;
@@ -77,7 +94,6 @@ namespace QuadKin.Kinect
                 catch (IOException)
                 {
                     this.kinSensor = null;
-                    int lol = 0;
                 }
 
                 if (statusLabel != null)
@@ -108,22 +124,6 @@ namespace QuadKin.Kinect
 
                 State = State.Ready;
                 return true;
-            }
-        }
-
-        public void Stop()
-        {
-            if (null != this.kinSensor)
-            {
-                this.kinSensor.Stop();
-                // Turn off the skeleton stream to receive skeleton frames
-                this.kinSensor.SkeletonStream.Disable();
-                this.kinSensor.DepthStream.Disable();
-
-                // Add an event handler to be called whenever there is new color frame data
-                this.kinSensor.SkeletonFrameReady -= this.KinectSkeletonFrameReady;
-                // Add an event handler to be called whenever there is new color frame data
-                this.kinSensor.DepthFrameReady -= this.KinectDepthFrameReady;
             }
         }
 

@@ -20,19 +20,24 @@ namespace QuadKin.Quad.UserControls
     /// </summary>
     public partial class CamDisplay : UserControl
     {
-        //private WriteableBitmap colorBitmap;
 
         public CamDisplay()
         {
             InitializeComponent();
 
-            stateChanged(QuadCom.instance.State);
             QuadCom.instance.stateChanged += stateChanged;
+            QuadCom.instance.VideoBitmapReady += showCamImage;
+        }
+
+        ~CamDisplay()
+        {
+            QuadCom.instance.stateChanged -= stateChanged;
+            QuadCom.instance.VideoBitmapReady -= showCamImage;
         }
 
         private void stateChanged(State state)
         {
-            QuadCom.instance.VideoBitmapReady += showCamImage;
+            
         }
 
         private void showCamImage(WriteableBitmap wmp)

@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+  dslVersion="1.0.0.0"
+  Id="f7aa6cfd-7c1b-4cb7-a7c8-64d2551dfeaf"
+  name="Kinect"
+  visibility="Private" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <referencesInternal>
+    <reference
+      Id="4591f42d-d3c9-4c44-b3b8-cdedc07e7b24"
+      handle="viewcode://./CodeSchema_Namespace?Namespace%3DMicrosoft.Kinect"
+      tag="ViewCode" />
+  </referencesInternal>
+  <profileInstances>
+    <packageHasProfileInstances
+      Id="aaf32afc-5cf1-429b-aeb9-d4df28c0d846">
+      <profileInstance
+        Id="e450f857-b152-43af-b553-f900b43beb5b"
+        name="CSharpProfile" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <packageHasNamedElement>
+      <class
+        Id="18897457-b1ee-40b6-b442-97aa5e2aecb9"
+        name="Skeleton"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="468d47cf-fc5e-4168-a52c-9415206a94c5"
+            handle="viewcode://./CodeSchema_Class?Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files%2FMicrosoft SDKs%2FKinect%2Fv1.6%2FAssemblies%2FMicrosoft.Kinect.dll&quot; Namespace%3DMicrosoft.Kinect Type%3DSkeleton"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="5d083751-9fb3-4a09-b63f-f195e7296cd6"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="5c1ed736-7ce9-4f07-a1d9-7f11637f6985">
+                <propertyInstance
+                  Id="71a56459-ab5c-45b8-a600-e0b93e4856e3"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="f37da86c-39b2-4bce-bec3-5a7470f9467f">
+                <propertyInstance
+                  Id="a81b9dad-5ba5-45db-86d4-cfdce4d33304"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="37a7e86a-aa81-4df0-9866-6a4365f3e501">
+                <propertyInstance
+                  Id="df4527eb-41f3-4e30-95a1-b8bd72a905ec"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="8ac9c49c-0b90-486a-861f-a8ece0da82e0">
+                <propertyInstance
+                  Id="57c3554e-8cca-4318-aa49-dc9a11133958"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="6ae1dd41-c5b0-44a9-870b-4f45292baf39">
+                <propertyInstance
+                  Id="48e52a43-3925-4a1f-8e33-30fd4b798b9f"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <enumeration
+        Id="91b3e70c-01b7-43b0-a6fc-d912689423a7"
+        name="JointType"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="dd4397a2-6ba4-41a8-9550-af13fabc274f"
+            handle="viewcode://./CodeSchema_Enum?Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files%2FMicrosoft SDKs%2FKinect%2Fv1.6%2FAssemblies%2FMicrosoft.Kinect.dll&quot; Namespace%3DMicrosoft.Kinect Type%3DJointType"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="2aaf1e3f-19c3-4e69-b4ed-6fbb5cb99a3d"
+            name="enum"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="ecb51cbe-49eb-4373-8798-a301e33d3df1">
+                <propertyInstance
+                  Id="aca39b7a-982b-414d-ba67-1525b3e9fb7d"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="de0d60d0-7fdf-45ce-baa9-6edb0ceb7a08">
+                <propertyInstance
+                  Id="11e3bf7d-fa11-4ad3-8e61-8ce33f1ff54d"
+                  name="BaseType"
+                  value="int" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="b144e038-c8db-4bc2-9609-2e53be0ee642">
+                <propertyInstance
+                  Id="45065f22-57f6-4944-8f59-59386cd26969"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+      </enumeration>
+    </packageHasNamedElement>
+  </packagedElements>
+</package>

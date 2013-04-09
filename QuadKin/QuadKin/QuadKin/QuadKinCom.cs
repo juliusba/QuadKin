@@ -14,7 +14,7 @@ namespace QuadKin
     class QuadKinCom : StateClass
     {
         private static readonly int waitInterval = 3000;
-        private static readonly int validInterval = 100;
+        private static readonly int validInterval = 1000;
         
         private Stopwatch swInit = new Stopwatch();
         private Stopwatch swValid = new Stopwatch();
@@ -47,12 +47,12 @@ namespace QuadKin
 
         private void Init()
         {
+            KinCom.instance.stateChanged += kinStateChanged;
+            QuadCom.instance.stateChanged += quadStateChanged;
             if (KinCom.instance.State == State.Ready && QuadCom.instance.State == State.Ready)
             {
                 KinCom.instance.skeletonReady += skeletonReady;
             }
-            KinCom.instance.stateChanged += kinStateChanged;
-            QuadCom.instance.stateChanged += quadStateChanged;
         }
 
         private void quadStateChanged(State state)
@@ -82,11 +82,11 @@ namespace QuadKin
                 {
                     case State.NoConnection:
                         this.State = State.Initializing;
-                        QuadCom.instance.takeOff();
+                        QuadCom.instance.TakeOff();
                         this.swInit.Restart();
                         break;
                     case State.Initializing:
-                        QuadCom.instance.sendNullCommand();
+                        //QuadCom.instance.sendNullCommand();
                         long timeLeft = waitInterval - this.swInit.ElapsedMilliseconds;
                         if (timeLeft <= 0)
                         {
@@ -96,7 +96,7 @@ namespace QuadKin
                         if(swValid.IsRunning) swValid.Reset();
                         break;
                     case State.Ready:
-                        QuadCom.instance.sendCommand(c);
+                        QuadCom.instance.SendCommand(c);
                         if(swValid.IsRunning) swValid.Reset();
                         break;
                 }
@@ -111,6 +111,7 @@ namespace QuadKin
                         {
                             swValid.Reset();
                             State = State.NoConnection;
+                            QuadCom.instance.Land();
                         }
                     }
                     else

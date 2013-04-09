@@ -31,7 +31,9 @@ namespace QuadKin.Quad
         private bool initNav = false;
         private bool initVideo = false;
 
-        private bool valuesUpdated;
+        private bool flying = false;
+
+        private bool valuesUpdated = false;
         private float pitch;
         private float roll;
         private float gaz;
@@ -46,6 +48,20 @@ namespace QuadKin.Quad
 
             if (socket_at.Connected)
             {
+                //Send rest watchdog and land command at start up.... and hover...
+                sendCommand("AT*REF=1,290717696\r");
+                Thread.Sleep(15);
+                sendCommand("AT*PCMD=1,0,0,0,0,0\r");
+                Thread.Sleep(15);
+                sendCommand("AT*COMWDG=1\r");
+                Thread.Sleep(15);
+
+                //LEDS EXAMPLE..........................................................................
+                sendCommand("AT*CONFIG=2,\"leds:leds_anim\",\"3,1073741824,2\"\r");
+                //LEDS EXAMPLE END......................................................................
+
+                Thread.Sleep(1000);
+
                 StartWorkerThread();
                 return true;
             }
@@ -65,17 +81,12 @@ namespace QuadKin.Quad
             land = true;
         }
 
-        public void sendNullCommand()
+        public void sendCommand(Command c)
         {
-            sendUpdatedValues(0, 0, 0, 0, 0);
-        }
-
-        public void sendUpdatedValues(int enable, float pitch, float roll, float gaz, float yaw)
-        {
-            this.pitch = pitch;
-            this.roll = roll;
-            this.gaz = gaz;
-            this.yaw = yaw;
+            this.pitch = c.FB;
+            this.roll = c.RL;
+            this.gaz = c.UD;
+            this.yaw = c.TRL;
             this.valuesUpdated = true;
         }
 
@@ -94,12 +105,14 @@ namespace QuadKin.Quad
             if (land)
             {
                 sendCommand("AT*REF=" + seqNr + ",290717696");
+                flying = false;
                 land = false;
                 takeOff = false;
             }
             else if (takeOff)
             {
                 sendCommand("AT*REF=" + seqNr + ",290718208");
+                flying = true;
                 takeOff = false;
             }
             else if (initNav)
@@ -112,12 +125,14 @@ namespace QuadKin.Quad
                 sendCommand("AT*CONFIG=" + seqNr + ",\"general:video_enable\",\"TRUE\"");
                 initVideo = false;
             }
-            else
+            else if (flying)
             {
                 if (valuesUpdated)
                 {
+                    
                     sendCommand("AT*PCMD=" + seqNr + "," + 1 + "," + intOfFloat(pitch) + "," + intOfFloat(roll)
                         + "," + intOfFloat(gaz) + "," + intOfFloat(yaw));
+                    valuesUpdated = false;
 
                     if (sw.IsRunning)
                         sw.Stop();
@@ -126,11 +141,16 @@ namespace QuadKin.Quad
                 {
                     if (sw.IsRunning)
                     {
-                        if (sw.ElapsedMilliseconds > 200 && sw.ElapsedMilliseconds <= 2000)
+                        if (sw.ElapsedMilliseconds < 200)
+                        {
+                            sendCommand("AT*PCMD=" + seqNr + "," + 1 + "," + intOfFloat(pitch) + "," + intOfFloat(roll)
+                                + "," + intOfFloat(gaz) + "," + intOfFloat(yaw));
+                        }
+                        if (sw.ElapsedMilliseconds <= 10000)
                         {
                             sendCommand("AT*PCMD=" + seqNr + "," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0);
                         }
-                        else if (sw.ElapsedMilliseconds > 2000)
+                        else if (sw.ElapsedMilliseconds > 10000)
                         {
                             sendCommand("AT*REF=" + seqNr + ",290717696");
                         }
@@ -141,6 +161,11 @@ namespace QuadKin.Quad
                     }
                 }
             }
+            else
+            {
+                sendCommand("AT*PCMD=" + seqNr + "," + 1 + "," + 0 + "," + 0 + "," + 0 + "," + 0);
+                //sendCommand("AT*COMWDG=" + seqNr);
+            }
             Thread.Sleep(25);
         }
 
@@ -148,6 +173,7 @@ namespace QuadKin.Quad
         {
             byte[] buffer = Encoding.ASCII.GetBytes(command + "\r");
             return socket_at.Send(buffer) == buffer.Count();
+            if(flying) Console.WriteLine("-----------------" + command);
         }
 
         private int intOfFloat(float f)

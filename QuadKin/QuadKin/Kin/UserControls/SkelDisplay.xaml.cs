@@ -33,11 +33,11 @@ namespace QuadKin.Kinect.UserControls
             KinCom.instance.stateChanged += stateChanged;
         }
 
-        //~SkelDisplay()
-        //{
-        //    KinCom.instance.skeletonReady -= drawSkeleton;
-        //    KinCom.instance.depthFrameReady -= drawWhiteOnBlack;
-        //}
+        ~SkelDisplay()
+        {
+            KinCom.instance.skeletonReady -= drawSkeleton;
+            KinCom.instance.depthFrameReady -= drawWhiteOnBlack;
+        }
 
         private void stateChanged(State state)
         {
