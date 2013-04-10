@@ -26,33 +26,8 @@ namespace QuadKin.Quad
         private Stopwatch sw = new Stopwatch();
 
         private ATWorker atWorker = new ATWorker();
-        private NavDataWorker navDataWorker = new NavDataWorker();
-        private VideoDataWorker videoDataWorker = new VideoDataWorker();
-
-
-        public event NavDataWorker.ByteArrayHandler NavDataReady
-        {
-            add
-            {
-                navDataWorker.NavDataReady += value;
-            }
-            remove
-            {
-                navDataWorker.NavDataReady -= value;
-            }
-        }
-
-        public event VideoDataWorker.WritableBitmapHandler VideoBitmapReady
-        {
-            add
-            {
-                videoDataWorker.VideoBitmapReady += value;
-            }
-            remove
-            {
-                videoDataWorker.VideoBitmapReady -= value;
-            }
-        }
+        public NavDataWorker navDataWorker = new NavDataWorker();
+        public VideoDataWorker videoDataWorker = new VideoDataWorker();
 
         private static QuadCom quadCom;
         private static object syncRoot = new Object();
@@ -77,36 +52,36 @@ namespace QuadKin.Quad
             }
         }
 
-        public static void Stop()
-        {
-            quadCom.atWorker.CancelAsync();
-            quadCom.navDataWorker.CancelAsync();
-            quadCom.videoDataWorker.CancelAsync();
-            quadCom = null;
-        }
-
         public void Init()
         {
-            if (!atWorker.Init(ipAdd, PORT_AT))
+            if (!atWorker.Init(ipAdd, DRONE_IP_ADRESS, PORT_AT))
             {
                 State = State.NoConnection;
                 return;
             }
 
-            
-            if (!navDataWorker.Init(ipAdd, PORT_NAVDATA, atWorker))
+
+            if (!navDataWorker.Init(ipAdd, DRONE_IP_ADRESS, PORT_NAVDATA, atWorker))
             {
                 State = State.NoConnection;
                 return;
             }
 
-            if (!videoDataWorker.Init(ipAdd, PORT_VIDEO, atWorker))
+            if (!videoDataWorker.Init(ipAdd, DRONE_IP_ADRESS, PORT_VIDEO))
             {
                 State = State.NoConnection;
                 return;
             }
 
             State = State.Ready;
+        }
+
+        public static void Stop()
+        {
+            quadCom.atWorker.CancelAsync();
+            quadCom.navDataWorker.CancelAsync();
+            quadCom.videoDataWorker.CancelAsync();
+            quadCom = null;
         }
 
         public void TakeOff()

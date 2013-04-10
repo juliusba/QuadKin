@@ -1,5 +1,5 @@
 ﻿using Microsoft.Kinect;
-using QuadKin.Kinect.UserControls;
+using QuadKin.Kin.UserControls;
 using QuadKin.Quad;
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace QuadKin.Kinect
+namespace QuadKin.Kin
 {
     public class KinCom : StateClass
     {

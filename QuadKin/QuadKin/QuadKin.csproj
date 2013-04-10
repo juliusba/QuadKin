@@ -61,6 +61,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Kin\KinCom.cs" />
+    <Compile Include="Kin\UserControls\CamDisplay.xaml.cs">
+      <DependentUpon>CamDisplay.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Kin\UserControls\SkelDisplay.xaml.cs">
       <DependentUpon>SkelDisplay.xaml</DependentUpon>
     </Compile>
@@ -76,6 +79,12 @@
     <Compile Include="Quad\UDPWorker.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Quad\UserControls\BellyCamDisplay.xaml.cs">
+      <DependentUpon>BellyCamDisplay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Quad\UserControls\NavDataDisplay.xaml.cs">
+      <DependentUpon>NavDataDisplay.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Quad\VideoDataWorker.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -83,9 +92,13 @@
     <Compile Include="State.cs" />
     <Compile Include="QuadKin\QuadKinCom.cs" />
     <Compile Include="Quad\QuadCom.cs" />
-    <Compile Include="Quad\UserControls\CamDisplay.xaml.cs">
-      <DependentUpon>CamDisplay.xaml</DependentUpon>
+    <Compile Include="Quad\UserControls\FrontCamDisplay.xaml.cs">
+      <DependentUpon>FrontCamDisplay.xaml</DependentUpon>
     </Compile>
+    <Page Include="Kin\UserControls\CamDisplay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Kin\UserControls\SkelDisplay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -107,7 +120,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Quad\UserControls\CamDisplay.xaml">
+    <Page Include="Quad\UserControls\BellyCamDisplay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Quad\UserControls\FrontCamDisplay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Quad\UserControls\NavDataDisplay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

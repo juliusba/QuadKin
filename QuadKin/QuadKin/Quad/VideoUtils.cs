@@ -11,8 +11,26 @@ using System.Windows.Media.Imaging;
 
 namespace QuadKin.Quad
 {
+    internal class DroneImageCompleteEventArgs : EventArgs
+    {
+        private ImageSource imageSource;
+
+        public DroneImageCompleteEventArgs(ImageSource imageSource)
+        {
+            this.imageSource = imageSource;
+        }
+
+        public ImageSource ImageSource
+        {
+            get { return imageSource; }
+        }
+    }
+    
     internal class VideoUtils
     {
+        internal delegate void DroneImageCompleteEventHandler(object sender, DroneImageCompleteEventArgs e);
+        internal event DroneImageCompleteEventHandler ImageComplete;
+        
         [DllImport("Kernel32.dll", EntryPoint = "RtlMoveMemory")]
         internal static extern void CopyMemory(IntPtr destination, IntPtr source, int length);
 
@@ -153,13 +171,13 @@ namespace QuadKin.Quad
             imageStreams = new Stack<byte[]>();
         }
 
-        internal WriteableBitmap ProcessByteStream(byte[] stream)
+        internal void ProcessByteStream(byte[] stream)
         {
             imageStream = stream;
-            return ProcessStream();
+            ProcessStream();
         }
 
-        private WriteableBitmap ProcessStream()
+        private void ProcessStream()
         {
             bool blockY0HasAcComponents = false;
             bool blockY1HasAcComponents = false;
@@ -242,7 +260,10 @@ namespace QuadKin.Quad
                 }
             }
 
-            return ImageSource;
+            if (ImageComplete != null)
+            {
+                ImageComplete(this, new DroneImageCompleteEventArgs(ImageSource));
+            }
         }
 
         private void ReadHeader()

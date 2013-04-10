@@ -1,5 +1,5 @@
 ﻿using Microsoft.Kinect;
-using QuadKin.Kinect;
+using QuadKin.Kin;
 using QuadKin.Quad;
 using System;
 using System.Collections.Generic;

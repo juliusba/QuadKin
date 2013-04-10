@@ -11,43 +11,48 @@ namespace QuadKin.Quad
 {
     public class VideoDataWorker : UDPWorker
     {
-        private byte[] buffer_video = new byte[64000];
-        private Socket socket_video;
+        private UdpClient socket_video;
         private VideoUtils videoUtils = new VideoUtils();
+        private IPEndPoint ipEP;
+        private byte[] buffer;
 
         public delegate void WritableBitmapHandler(WriteableBitmap wbm);
         public event WritableBitmapHandler VideoBitmapReady;
 
-        public bool Init(IPAddress ipAdd, int PORT_VIDEO, ATWorker atWorker)
+        internal bool Init(IPAddress ipAdd, string ipAdress, int PORT_VIDEO)
         {
-            byte[] buffer = { 0x01, 0x00, 0x00, 0x00 };
-            socket_video = new Socket(SocketType.Dgram, ProtocolType.IP);
-            socket_video.Connect(ipAdd, PORT_VIDEO);
+            this.ipEP = new IPEndPoint(ipAdd, PORT_VIDEO);
 
-            if (socket_video.Connected && socket_video.Send(buffer) > 0)
-            {
-                atWorker.InitVideoData();
-                StartWorkerThread();
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            byte[] buffer = { 0x01, 0x00, 0x00, 0x00 };
+            socket_video = new UdpClient(ipAdress, PORT_VIDEO);
+
+            socket_video.Send(buffer, buffer.Length);
+
+            videoUtils.ImageComplete += VideoImage_ImageComplete;
+
+            StartWorkerThread();
+            return true;
         }
 
         protected override void doWork()
         {
             try
             {
-                socket_video.Receive(buffer_video);
-                Console.WriteLine("Video:" + buffer_video[1045]);
-                VideoBitmapReady(videoUtils.ProcessByteStream(buffer_video));
+                buffer = socket_video.Receive(ref ipEP);
+                Console.WriteLine("Video:" + buffer[1045]);
+                videoUtils.ProcessByteStream(buffer);
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
+        }
+
+        private void VideoImage_ImageComplete(object sender, DroneImageCompleteEventArgs e)
+        {
+            WriteableBitmap videoImage = e.ImageSource as WriteableBitmap;
+            if (VideoBitmapReady != null)
+                VideoBitmapReady(videoImage);
         }
     }
 }

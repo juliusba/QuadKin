@@ -15,8 +15,8 @@ using System.Windows.Shapes;
 using System.IO;
 using System.Diagnostics;
 using QuadKin.Quad;
-using QuadKin.Kinect;
-using QuadKin.Kinect.UserControls;
+using QuadKin.Kin;
+using QuadKin.Kin.UserControls;
 
 namespace QuadKin
 {

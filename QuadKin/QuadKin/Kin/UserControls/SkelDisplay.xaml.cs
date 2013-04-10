@@ -14,16 +14,13 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace QuadKin.Kinect.UserControls
+namespace QuadKin.Kin.UserControls
 {
     /// <summary>
     /// Interaction logic for KinectDisplay.xaml
     /// </summary>
     public partial class SkelDisplay : UserControl
     {
-        private DepthImagePixel[] depthPixels;
-        private byte[] colorPixels;
-        private WriteableBitmap colorBitmap;
 
         public SkelDisplay()
         {
@@ -35,24 +32,15 @@ namespace QuadKin.Kinect.UserControls
 
         ~SkelDisplay()
         {
+            KinCom.instance.stateChanged -= stateChanged;
             KinCom.instance.skeletonReady -= drawSkeleton;
-            KinCom.instance.depthFrameReady -= drawWhiteOnBlack;
         }
 
         private void stateChanged(State state)
         {
             if (state == State.Ready)
             {
-                DepthImageStream stream = KinCom.instance.getDepthStream();
-                this.depthPixels = new DepthImagePixel[stream.FramePixelDataLength];
-                this.colorPixels = new byte[stream.FramePixelDataLength * sizeof(int)];
-                this.colorBitmap = new WriteableBitmap(stream.FrameWidth, stream.FrameHeight,
-                    96.0, 96.0, PixelFormats.Bgr32, null);
-
-                this.ImageDisplay.Source = this.colorBitmap;
-
                 KinCom.instance.skeletonReady += drawSkeleton;
-                KinCom.instance.depthFrameReady += drawWhiteOnBlack;
             }
         }
 
@@ -78,6 +66,21 @@ namespace QuadKin.Kinect.UserControls
             SetEllipsePosition(this.JointKneeRight, skel.Joints[JointType.KneeRight]);
             SetEllipsePosition(this.JointAnkleRight, skel.Joints[JointType.AnkleRight]);
             SetEllipsePosition(this.JointFootRight, skel.Joints[JointType.FootRight]);
+
+            setLinePosition(this.UpperRightArm, skel.Joints[JointType.ShoulderRight], skel.Joints[JointType.ElbowRight]);
+            setLinePosition(this.UpperLeftArm, skel.Joints[JointType.ShoulderLeft], skel.Joints[JointType.ElbowLeft]);
+            setLinePosition(this.LowerRightArm, skel.Joints[JointType.ElbowRight], skel.Joints[JointType.WristRight]);
+            setLinePosition(this.LowerLeftArm, skel.Joints[JointType.ElbowLeft], skel.Joints[JointType.WristLeft]);
+            setLinePosition(this.RightHand, skel.Joints[JointType.WristRight], skel.Joints[JointType.HandRight]);
+            setLinePosition(this.LeftHand, skel.Joints[JointType.WristLeft], skel.Joints[JointType.HandLeft]);
+            setLinePosition(this.Neck, skel.Joints[JointType.Head], skel.Joints[JointType.ShoulderCenter]);
+            setLinePosition(this.Spine, skel.Joints[JointType.ShoulderCenter], skel.Joints[JointType.HipCenter]);
+            setLinePosition(this.RightShoulder, skel.Joints[JointType.ShoulderCenter], skel.Joints[JointType.ShoulderRight]);
+            setLinePosition(this.LeftShoulder, skel.Joints[JointType.ShoulderCenter], skel.Joints[JointType.ShoulderLeft]);
+            setLinePosition(this.RightHip, skel.Joints[JointType.HipCenter], skel.Joints[JointType.HipRight]);
+            setLinePosition(this.LeftHip, skel.Joints[JointType.HipCenter], skel.Joints[JointType.HipLeft]);
+            setLinePosition(this.UpperRightLeg, skel.Joints[JointType.HipRight], skel.Joints[JointType.KneeRight]);
+            setLinePosition(this.UpperLeftLeg, skel.Joints[JointType.HipLeft], skel.Joints[JointType.KneeLeft]);
         }
 
         private void SetEllipsePosition(Ellipse ellipse, Joint joint)
@@ -95,73 +98,20 @@ namespace QuadKin.Kinect.UserControls
             }
         }
 
-        private void drawWhiteOnBlack(DepthImageFrame depthFrame)
+        private void setLinePosition(Line line, Joint j1, Joint j2)
         {
-            depthFrame.CopyDepthImagePixelDataTo(this.depthPixels);
-
-            // Get the min and max reliable depth for the current players
-            //int minDepth = depthPixels[0].Depth;
-            //int maxDepth = depthPixels[0].Depth;
-            //double avgDepth = 0;
-            //int playerPixelCount = 0;
-
-            //for (int i = 0; i < this.depthPixels.Length; ++i)
-            //{
-            //    if (depthPixels[i].PlayerIndex == 1)
-            //    {
-            //        short depth = this.depthPixels[i].Depth;
-            //        minDepth = Math.Min(depth, minDepth);
-            //        maxDepth = Math.Max(depth, maxDepth);
-            //        avgDepth += depth;
-            //        playerPixelCount++;
-            //    }
-            //}
-
-            //avgDepth /= playerPixelCount;
-
-            // Convert the depth to RGB
-            int colorPixelIndex = 0;
-            for (int i = 0; i < this.depthPixels.Length; ++i)
+            if (j1.TrackingState == JointTrackingState.Tracked && j2.TrackingState == JointTrackingState.Tracked)
             {
-                if (depthPixels[i].PlayerIndex != 0)
-                {
-                    this.colorPixels[colorPixelIndex++] = (byte)255;
-                    this.colorPixels[colorPixelIndex++] = (byte)255;
-                    this.colorPixels[colorPixelIndex++] = (byte)255;
-                    colorPixelIndex++;
-
-                    //short depth = this.depthPixels[i].Depth;
-
-                    //// Write out blue byte
-                    //this.colorPixels[colorPixelIndex++] = (byte)Math.Min(depth - avgDepth, 0);
-                    //// Write out green byte
-                    //this.colorPixels[colorPixelIndex++] = (byte)maxDepth;
-                    //// Write out red byte                        
-                    //this.colorPixels[colorPixelIndex++] = (byte)Math.Min(avgDepth - depth, 0);
-                    //// Write alpha if Bgra, else unused...
-                    //++colorPixelIndex;
-                }
-                else
-                {
-
-                    byte intensity = (byte)0;
-
-                    // Write out blue byte
-                    this.colorPixels[colorPixelIndex++] = intensity;
-                    // Write out green byte
-                    this.colorPixels[colorPixelIndex++] = intensity;
-                    // Write out red byte                        
-                    this.colorPixels[colorPixelIndex++] = intensity;
-                    // Write alpha if Bgra, else unused...
-                    ++colorPixelIndex;
-                }
+                line.X1 = j1.Position.X * this.ActualWidth / 2 + this.ActualWidth / 2;
+                line.X2 = j2.Position.X * this.ActualWidth / 2 + this.ActualWidth / 2;
+                line.Y1 = this.ActualHeight - (j1.Position.Y * this.ActualHeight / 2 + this.ActualHeight / 2);
+                line.Y2 = this.ActualHeight - (j2.Position.Y * this.ActualHeight / 2 + this.ActualHeight / 2);
+                line.Visibility = System.Windows.Visibility.Visible;
             }
-
-            this.colorBitmap.WritePixels(
-                new Int32Rect(0, 0, this.colorBitmap.PixelWidth, this.colorBitmap.PixelHeight),
-                this.colorPixels,
-                this.colorBitmap.PixelWidth * sizeof(int),
-                0);
+            else
+            {
+                line.Visibility = System.Windows.Visibility.Hidden;
+            }
         }
     }
 }

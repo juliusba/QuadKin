@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="QuadKin.Kinect.UserControls.SkelDisplay"
+﻿<UserControl x:Class="QuadKin.Kin.UserControls.SkelDisplay"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -13,8 +13,22 @@
                                   ShadowDepth="0"/>
             </Border.Effect>
         </Border>
-        <Image Name="ImageDisplay" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
         <Canvas Name="SkeletonDisplay" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <Line Stroke="White" StrokeThickness="4" Name="UpperRightArm"  Visibility="Hidden" />
+            <Line Stroke="White" StrokeThickness="4" Name="UpperLeftArm"  Visibility="Hidden" />
+            <Line Stroke="White" StrokeThickness="4" Name="LowerRightArm"  Visibility="Hidden" />
+            <Line Stroke="White" StrokeThickness="4" Name="LowerLeftArm"  Visibility="Hidden" />
+            <Line Stroke="White" StrokeThickness="4" Name="Spine"  Visibility="Hidden" />
+            <Line Stroke="White" StrokeThickness="4" Name="Neck"  Visibility="Hidden" />
+            <Line Stroke="White" StrokeThickness="4" Name="LeftShoulder"  Visibility="Hidden" />
+            <Line Stroke="White" StrokeThickness="4" Name="RightShoulder"  Visibility="Hidden" />
+            <Line Stroke="White" StrokeThickness="4" Name="LeftHip"  Visibility="Hidden" />
+            <Line Stroke="White" StrokeThickness="4" Name="RightHip"  Visibility="Hidden" />
+            <Line Stroke="White" StrokeThickness="4" Name="UpperRightLeg"  Visibility="Hidden" />
+            <Line Stroke="White" StrokeThickness="4" Name="UpperLeftLeg"  Visibility="Hidden" />
+            <Line Stroke="White" StrokeThickness="4" Name="RightHand"  Visibility="Hidden" />
+            <Line Stroke="White" StrokeThickness="4" Name="LeftHand"  Visibility="Hidden" />
+
             <Ellipse Height="10" Width="10" Fill="Blue" Name="JointHipCenter" Visibility="Hidden"/>
             <Ellipse Height="10" Width="10" Fill="Blue" Name="JointSpine" Visibility="Hidden"/>
             <Ellipse Height="10" Width="10" Fill="Blue" Name="JointShoulderCenter" Visibility="Hidden"/>
@@ -35,6 +49,7 @@
             <Ellipse Height="15" Width="10" Fill="Red" Name="JointKneeRight" Visibility="Hidden"/>
             <Ellipse Height="10" Width="10" Fill="Blue" Name="JointAnkleRight" Visibility="Hidden"/>
             <Ellipse Height="10" Width="10" Fill="Blue" Name="JointFootRight" Visibility="Hidden"/>
+            
         </Canvas>
     </Grid>
 </UserControl>

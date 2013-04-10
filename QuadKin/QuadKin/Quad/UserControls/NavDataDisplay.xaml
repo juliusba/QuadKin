@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="QuadKin.QuadKin.UserControls.ControlDisplay"
+﻿<UserControl x:Class="QuadKin.Quad.UserControls.NavDataDisplay"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -11,7 +11,7 @@
                     BorderThickness="3,3,3,3" BorderBrush="#111" CornerRadius="15,15,15,15">
             <Border.Effect>
                 <DropShadowEffect BlurRadius="40" Color="Black" Direction="45" Opacity="1.0" RenderingBias="Performance"
-                                    ShadowDepth="0"/>
+                                      ShadowDepth="0"/>
             </Border.Effect>
         </Border>
         <Grid>
@@ -32,18 +32,18 @@
                 <ColumnDefinition Width="30" />
             </Grid.ColumnDefinitions>
 
-            <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Content="Command data" FontSize="30" />
-            <Label Grid.Row="2" Grid.Column="1" Content="Flag" FontSize="20" />
-            <Label Grid.Row="3" Grid.Column="1" Content="Up-Down" FontSize="20" />
-            <Label Grid.Row="4" Grid.Column="1" Content="Right-Left" FontSize="20" />
-            <Label Grid.Row="5" Grid.Column="1" Content="Front-Back" FontSize="20" />
-            <Label Grid.Row="6" Grid.Column="1" Content="Turn-Right-Left" FontSize="20" />
+            <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Content="Navigation data" FontSize="30" />
+            <Label Grid.Row="2" Grid.Column="1" Content="Battery" FontSize="20" />
+            <Label Grid.Row="3" Grid.Column="1" Content="Altitude" FontSize="20" />
+            <Label Grid.Row="4" Grid.Column="1" Content="X-speed" FontSize="20" />
+            <Label Grid.Row="5" Grid.Column="1" Content="Y-speed" FontSize="20" />
+            <Label Grid.Row="6" Grid.Column="1" Content="Z-speed" FontSize="20" />
 
-            <Label Name="Valid" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Right" Content="Invalid" FontSize="20" Foreground="Red" />
-            <Label Name="UD" Grid.Row="3" Grid.Column="2" HorizontalAlignment="Right" Content="0.0" FontSize="20" />
-            <Label Name="RL" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Right" Content="0.0" FontSize="20" />
-            <Label Name="FB" Grid.Row="5" Grid.Column="2" HorizontalAlignment="Right" Content="0.0" FontSize="20" />
-            <Label Name="TRL" Grid.Row="6" Grid.Column="2" HorizontalAlignment="Right" Content="0.0" FontSize="20" />
+            <Label Name="Battery" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Right" Content="--%" FontSize="20" />
+            <Label Name="Altitude" Grid.Row="3" Grid.Column="2" HorizontalAlignment="Right" Content="0.0" FontSize="20" />
+            <Label Name="XSpedd" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Right" Content="0.0" FontSize="20" />
+            <Label Name="YSpeed" Grid.Row="5" Grid.Column="2" HorizontalAlignment="Right" Content="0.0" FontSize="20" />
+            <Label Name="ZSpeed" Grid.Row="6" Grid.Column="2" HorizontalAlignment="Right" Content="0.0" FontSize="20" />
         </Grid>
     </Grid>
 </UserControl>

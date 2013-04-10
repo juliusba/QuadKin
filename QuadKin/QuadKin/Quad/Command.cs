@@ -9,8 +9,8 @@ namespace QuadKin
 {
     public class Command
     {
-        private static readonly double WIGGLE_ROOM = 0.3;
-        public static readonly double ANGLE_ERROR_TOLERANCE = Math.PI / 2;
+        private static readonly float WIGGLE_ROOM = 0.25f;
+        public static readonly float ANGLE_ERROR_TOLERANCE = 4.0f;
         
         public float UD { get; private set; }
         public float RL { get; private set; }
@@ -55,30 +55,30 @@ namespace QuadKin
 
         private void setUD(BodyPartData rightArm, BodyPartData leftArm)
         {
-            double tempUD = (rightArm.Y + leftArm.Y) / 2;
+            float tempUD = (rightArm.Y + leftArm.Y) / 2;
             int sign = tempUD > 0 ? 1 : -1;
-            this.UD = sign * (int)Math.Round(Math.Max(tempUD * sign - WIGGLE_ROOM, 0) / (1 - WIGGLE_ROOM) * 100);
+            this.UD = sign * (float) Math.Round(Math.Max(tempUD * sign - WIGGLE_ROOM, 0) / (1 - WIGGLE_ROOM), 1);
         }
 
         private void setRL(BodyPartData rightArm, BodyPartData leftArm)
         {
-            double tempRL = (leftArm.Y - rightArm.Y) / 2;
+            float tempRL = (leftArm.Y - rightArm.Y) / 2;
             int sign = tempRL > 0 ? 1 : -1;
-            this.RL = sign * (int)Math.Round(Math.Max(tempRL * sign - WIGGLE_ROOM, 0) / (1 - WIGGLE_ROOM) * 100);
+            this.RL = sign * (float) Math.Round(Math.Max(tempRL * sign - WIGGLE_ROOM, 0) / (1 - WIGGLE_ROOM), 1);
         }
 
         private void setFB(BodyPartData rightArm, BodyPartData leftArm)
         {
-            double tempFB = -(rightArm.Z + leftArm.Z) / 2;
+            float tempFB = (rightArm.Z + leftArm.Z) / 2;
             int sign = tempFB > 0 ? 1 : -1;
-            this.FB = sign * (int)Math.Round(Math.Max(tempFB * sign - WIGGLE_ROOM, 0) / (1 - WIGGLE_ROOM) * 100);
+            this.FB = sign * (float) Math.Round(Math.Max(tempFB * sign - WIGGLE_ROOM, 0) / (1 - WIGGLE_ROOM), 1);
         }
 
         private void setTRL(BodyPartData rightArm, BodyPartData leftArm)
         {
-            double tempTRL = (rightArm.Z - leftArm.Z) / 2;
+            float tempTRL = (rightArm.Z - leftArm.Z) / 2;
             int sign = tempTRL > 0 ? 1 : -1;
-            this.TRL = sign * (int)Math.Round(Math.Max(tempTRL * sign - WIGGLE_ROOM, 0) / (1 - WIGGLE_ROOM) * 100);
+            this.TRL = sign * (float) Math.Round(Math.Max(tempTRL * sign - WIGGLE_ROOM, 0) / (1 - WIGGLE_ROOM), 1);
         }
         
     }
@@ -106,9 +106,9 @@ namespace QuadKin
         };
 
         public bool straight { get; private set; }
-        public double X { get; private set; }
-        public double Y { get; private set; }
-        public double Z { get; private set; }
+        public float X { get; private set; }
+        public float Y { get; private set; }
+        public float Z { get; private set; }
 
         public BodyPartData(Skeleton skel, BodyPart bodyPart)
         {
@@ -142,10 +142,10 @@ namespace QuadKin
 
             for (int i = 2; i < joints.Count; i++)
             {
-                double tempDX = skel.Joints[joints[i]].Position.X - skel.Joints[joints[i - 1]].Position.X;
-                double tempDY = skel.Joints[joints[i]].Position.Y - skel.Joints[joints[i - 1]].Position.Y;
-                double tempDZ = skel.Joints[joints[i]].Position.Z - skel.Joints[joints[i - 1]].Position.Z;
-                double tempL = Math.Pow(Math.Pow(tempDX, 2) + Math.Pow(tempDY, 2) + Math.Pow(tempDZ, 2), 0.5);
+                float tempDX = skel.Joints[joints[i]].Position.X - skel.Joints[joints[i - 1]].Position.X;
+                float tempDY = skel.Joints[joints[i]].Position.Y - skel.Joints[joints[i - 1]].Position.Y;
+                float tempDZ = skel.Joints[joints[i]].Position.Z - skel.Joints[joints[i - 1]].Position.Z;
+                float tempL = (float) Math.Pow(Math.Pow(tempDX, 2) + Math.Pow(tempDY, 2) + Math.Pow(tempDZ, 2), 0.5);
 
                 double tempAngleError = Math.Acos((previousDX * tempDX + previousDY * tempDY + previousDZ * tempDZ) / (previousL * tempL));
 
@@ -161,7 +161,11 @@ namespace QuadKin
                 previousL = tempL;
             }
 
-            double length = Math.Pow(Math.Pow(this.X, 2) + Math.Pow(this.Y, 2) + Math.Pow(this.Z, 2), 0.5);
+            // Adjust to more comfortable positions of the human body.
+            this.Y += 0.05f;
+            this.Z = (this.Z + 0.15f) / 0.8f;
+
+            float length = (float)Math.Pow(Math.Pow(this.X, 2) + Math.Pow(this.Y, 2) + Math.Pow(this.Z, 2), 0.5);
             this.X /= length;
             this.Y /= length;
             this.Z /= length;
