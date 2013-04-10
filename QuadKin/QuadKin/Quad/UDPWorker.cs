@@ -23,7 +23,6 @@ namespace QuadKin.Quad
         {
             while (true)
             {
-                Thread.Sleep(25);
                 doWork();
             }
         }

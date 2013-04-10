@@ -69,7 +69,7 @@ namespace QuadKin.Quad
 
         public void TakeOff()
         {
-            //takeOff = true;
+            takeOff = true;
         }
 
         public void Land()
@@ -95,6 +95,10 @@ namespace QuadKin.Quad
 
         protected override void doWork()
         {
+            Thread.Sleep(25);
+            sendCommand("AT*COMWDG=" + seqNr);
+            Thread.Sleep(25);            
+
             if (land)
             {
                 sendCommand("AT*REF=" + seqNr + ",290717696");
@@ -179,12 +183,6 @@ namespace QuadKin.Quad
 
         private int intOfFloat(float f)
         {
-            //if (f > 0.5)
-            //    return 1056964608;
-            //else if (f < -0.5)
-            //    return -1090519040;
-            //else
-            //    return 0;
             if (f == 0.0)
                 return 0;
             var bytes = new byte[4];

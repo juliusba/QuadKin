@@ -29,7 +29,7 @@ namespace QuadKin.Quad.UserControls
             InitializeComponent();
 
             timerVideoUpdate = new DispatcherTimer();
-            timerVideoUpdate.Interval = new TimeSpan(0, 0, 0, 0, 50);
+            timerVideoUpdate.Interval = new TimeSpan(0, 0, 0, 0, 20);
             timerVideoUpdate.Tick += new EventHandler(timerVideoUpdate_Tick);
             timerVideoUpdate.Start();
 

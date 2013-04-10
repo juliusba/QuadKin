@@ -163,7 +163,7 @@ namespace QuadKin
 
             // Adjust to more comfortable positions of the human body.
             this.Y += 0.05f;
-            this.Z = (this.Z + 0.15f) / 0.8f;
+            this.Z = (this.Z + 0.1f) / 0.8f;
 
             float length = (float)Math.Pow(Math.Pow(this.X, 2) + Math.Pow(this.Y, 2) + Math.Pow(this.Z, 2), 0.5);
             this.X /= length;
